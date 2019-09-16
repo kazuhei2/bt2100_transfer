@@ -8,6 +8,7 @@ const HLG_C: f64 = 0.5599107;
 
 fn main() {
     println!("{}", hlg_oetf(0.5));
+    println!("{}", hlg_inverse_oetf(0.5));
 }
 
 fn hlg_oetf(color: f64) -> f64 {
@@ -15,5 +16,14 @@ fn hlg_oetf(color: f64) -> f64 {
         (color * 3.0).sqrt()
     } else {
         HLG_A * (12.0 * color - HLG_B).ln() + HLG_C
+    }
+}
+
+fn hlg_inverse_oetf(color: f64) -> f64 {
+    if color <= 1.0 / 2.0 {
+        color * color / 3.0
+    } else {
+        let tmp = (color - HLG_C) / HLG_A;
+        (tmp.exp() + HLG_B) / 12.0
     }
 }
