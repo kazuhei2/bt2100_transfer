@@ -22,20 +22,6 @@ static display_prop: DisplayProp = DisplayProp {
     black_luminance: 5,
 };
 
-fn main() {
-    println!("{}", hlg_oetf(0.5));
-    println!("{}", hlg_inverse_oetf(0.5));
-
-    let mut rgb: Vec<f64> = Vec::new();
-    rgb.push(0.12);
-    rgb.push(0.34);
-    rgb.push(0.56);
-
-    println!("Before: rgb is {:?}", rgb);
-    hlg_ootf(&mut rgb);
-    println!("After: rgb is {:?}", rgb);
-}
-
 fn hlg_oetf(color: f64) -> f64 {
     if color <= 1.0 / 12.0 {
         (color * 3.0).sqrt()
@@ -64,4 +50,18 @@ fn hlg_ootf(rgb: &mut Vec<f64>) {
         let e_before = *e;
         *e =  (lw - lb) * y_pow * *e + lb;
     }
+}
+
+fn main() {
+    println!("{}", hlg_oetf(0.5));
+    println!("{}", hlg_inverse_oetf(0.5));
+
+    let mut rgb: Vec<f64> = Vec::new();
+    rgb.push(0.12);
+    rgb.push(0.34);
+    rgb.push(0.56);
+
+    println!("Before: rgb is {:?}", rgb);
+    hlg_ootf(&mut rgb);
+    println!("After: rgb is {:?}", rgb);
 }
