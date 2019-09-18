@@ -1,16 +1,10 @@
 use std::f64;
 
-struct DisplayProp {
-    gamma: f64,
-    peak_luminance: u16,
-    black_luminance: u16,
+pub struct DisplayProp {
+    pub gamma: f64,
+    pub peak_luminance: u16,
+    pub black_luminance: u16,
 }
-
-static display_prop: DisplayProp = DisplayProp {
-    gamma: 1.2,
-    peak_luminance: 1000,
-    black_luminance: 5,
-};
 
 /// There are 3 constants in BT.2100 TABLE 5
 const HLG_A: f64 = 0.17883277;
@@ -39,7 +33,7 @@ pub fn inverse_oetf(color: f64) -> f64 {
     }
 }
 
-pub fn ootf(rgb: &mut Vec<f64>) {
+pub fn ootf(display_prop: &DisplayProp, rgb: &mut Vec<f64>) {
     let y = Y_R_COEF * rgb[0] +
             Y_G_COEF * rgb[1] +
             Y_B_COEF * rgb[2];
