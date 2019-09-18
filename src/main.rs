@@ -44,10 +44,11 @@ fn hlg_ootf(rgb: &mut Vec<f64>) {
             Y_G_COEF * rgb[1] +
             Y_B_COEF * rgb[2];
     let y_pow = y.powf(display_prop.gamma - 1.0);
+
     let lw = display_prop.peak_luminance as f64;
     let lb = display_prop.black_luminance as f64;
+
     for e in rgb {
-        let e_before = *e;
         *e =  (lw - lb) * y_pow * *e + lb;
     }
 }
