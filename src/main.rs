@@ -3,6 +3,8 @@ use std::f64;
 mod bt2100tf;
 use bt2100tf::hlg::*;
 
+mod lut;
+
 const DISPLAY_PROP: DisplayProp = DisplayProp {
     gamma: 1.2,
     peak_luminance: 1000,
@@ -21,4 +23,6 @@ fn main() {
     println!("Before: rgb is {:?}", rgb);
     ootf(&DISPLAY_PROP, &mut rgb);
     println!("After: rgb is {:?}", rgb);
+
+    lut::print();
 }
