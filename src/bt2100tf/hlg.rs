@@ -25,7 +25,7 @@ pub fn oetf(color: f64) -> f64 {
 }
 
 pub fn inverse_oetf(color: f64) -> f64 {
-    if color <= 1.0 / 2.0 {
+    if color <= 0.5 {
         color * color / 3.0
     } else {
         let tmp = (color - HLG_C) / HLG_A;
