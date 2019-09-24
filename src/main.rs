@@ -24,5 +24,8 @@ fn main() {
     ootf(&DISPLAY_PROP, &mut rgb);
     println!("After: rgb is {:?}", rgb);
 
-    lut::print();
+    let lut = lut::LutBuilder::new()
+        .finalize();
+
+    lut.hlg_oetf();
 }
