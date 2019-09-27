@@ -35,10 +35,10 @@ impl Lut {
         ret
     }
 
-    pub fn hlg_oetf(&self) {
-        let max = (self.grid_num - 1) as f64;
-        for i in 0..1 << self.in_bit_wid {
-            println!("{},->,{}", i, hlg::oetf(i as f64 / max) * max);
+    pub fn tf1d(&self, func: fn(f64) -> f64, sample: Vec<f64>) {
+        let max = self.in_max as f64;
+        for c in sample.iter() {
+            println!("{},->,{}", c, func(c / max) * max);
         }
     }
 }
