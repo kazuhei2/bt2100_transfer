@@ -9,6 +9,15 @@ pub struct Lut {
 }
 
 impl Lut {
+    pub fn create_1d_sample(&self) -> Vec<f64> {
+        let max = (1 << self.in_bit_wid) - 1;
+        let interval = (max + 1) / (self.grid_num - 1);
+        let mut ret: Vec<f64> =
+            (0..max + 1).step_by(interval).map(|i| i as f64).collect();
+        ret.push(max as f64);
+        ret
+    }
+
     pub fn hlg_oetf(&self) {
         let max = (self.grid_num - 1) as f64;
         for i in 0..1 << self.in_bit_wid {
@@ -28,7 +37,7 @@ impl LutBuilder {
         LutBuilder {
             in_bit_wid: 10,
             out_bit_wid: 10,
-            grid_num: 1024,
+            grid_num: 17,
         }
     }
 
