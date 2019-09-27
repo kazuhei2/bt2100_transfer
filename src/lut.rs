@@ -4,13 +4,14 @@ use crate::bt2100tf::hlg;
 
 pub struct Lut {
     pub in_bit_wid: usize,
+    pub in_max: usize,
     pub out_bit_wid: usize,
     pub grid_num: usize,
 }
 
 impl Lut {
     pub fn create_1d_sample(&self) -> Vec<f64> {
-        let max = (1 << self.in_bit_wid) - 1;
+        let max = self.in_max;
         let interval = (max + 1) / (self.grid_num - 1);
         let mut ret: Vec<f64> =
             (0..max + 1).step_by(interval).map(|i| i as f64).collect();
@@ -44,6 +45,7 @@ impl Lut {
 
 pub struct LutBuilder {
     pub in_bit_wid: usize,
+    pub in_max: usize,
     pub out_bit_wid: usize,
     pub grid_num: usize,
 }
@@ -52,6 +54,7 @@ impl LutBuilder {
     pub fn new() -> LutBuilder {
         LutBuilder {
             in_bit_wid: 10,
+            in_max: 1023,
             out_bit_wid: 10,
             grid_num: 17,
         }
@@ -59,6 +62,7 @@ impl LutBuilder {
 
     pub fn in_bit_wid(&mut self, coordinate: usize) -> &mut LutBuilder {
         self.in_bit_wid = coordinate;
+        self.in_max = (1 << coordinate) - 1;
         self
     }
 
@@ -75,6 +79,7 @@ impl LutBuilder {
     pub fn finalize(&self) -> Lut {
         Lut {
             in_bit_wid: self.in_bit_wid,
+            in_max: self.in_max,
             out_bit_wid: self.out_bit_wid,
             grid_num: self.grid_num,
         }
