@@ -21,21 +21,19 @@ impl DisplayProp {
         DisplayProp {
             gamma: gamma,
             peak_luminance: peak,
-            black_luminance: black
+            black_luminance: black,
         }
     }
 
     pub fn ootf(&self, rgb: &mut Vec<f64>) {
-        let y = Y_R_COEF * rgb[0] +
-                Y_G_COEF * rgb[1] +
-                Y_B_COEF * rgb[2];
+        let y = Y_R_COEF * rgb[0] + Y_G_COEF * rgb[1] + Y_B_COEF * rgb[2];
         let y_pow = y.powf(self.gamma - 1.0);
 
         let lw = self.peak_luminance as f64;
         let lb = self.black_luminance as f64;
 
         for e in rgb {
-            *e =  (lw - lb) * y_pow * *e + lb;
+            *e = (lw - lb) * y_pow * *e + lb;
         }
     }
 }

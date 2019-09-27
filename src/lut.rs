@@ -51,7 +51,7 @@ impl LutBuilder {
         Lut {
             in_bit_wid: self.in_bit_wid,
             out_bit_wid: self.out_bit_wid,
-            grid_num: self.grid_num
+            grid_num: self.grid_num,
         }
     }
 }

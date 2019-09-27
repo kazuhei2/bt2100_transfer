@@ -21,8 +21,7 @@ fn main() {
 
     println!("After: rgb is {:?}", rgb);
 
-    let lut = lut::LutBuilder::new()
-        .finalize();
+    let lut = lut::LutBuilder::new().finalize();
 
     lut.hlg_oetf();
 }
