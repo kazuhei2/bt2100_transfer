@@ -3,9 +3,9 @@ use std::f64;
 use crate::bt2100tf::hlg;
 
 pub struct Lut {
-    pub in_bit_wid: u8,
-    pub out_bit_wid: u8,
-    pub grid_num: u16,
+    pub in_bit_wid: usize,
+    pub out_bit_wid: usize,
+    pub grid_num: usize,
 }
 
 impl Lut {
@@ -18,9 +18,9 @@ impl Lut {
 }
 
 pub struct LutBuilder {
-    pub in_bit_wid: u8,
-    pub out_bit_wid: u8,
-    pub grid_num: u16,
+    pub in_bit_wid: usize,
+    pub out_bit_wid: usize,
+    pub grid_num: usize,
 }
 
 impl LutBuilder {
@@ -32,17 +32,17 @@ impl LutBuilder {
         }
     }
 
-    pub fn in_bit_wid(&mut self, coordinate: u8) -> &mut LutBuilder {
+    pub fn in_bit_wid(&mut self, coordinate: usize) -> &mut LutBuilder {
         self.in_bit_wid = coordinate;
         self
     }
 
-    pub fn out_bit_wid(&mut self, coordinate: u8) -> &mut LutBuilder {
+    pub fn out_bit_wid(&mut self, coordinate: usize) -> &mut LutBuilder {
         self.out_bit_wid = coordinate;
         self
     }
 
-    pub fn grid_num(&mut self, coordinate: u16) -> &mut LutBuilder {
+    pub fn grid_num(&mut self, coordinate: usize) -> &mut LutBuilder {
         self.grid_num = coordinate;
         self
     }
