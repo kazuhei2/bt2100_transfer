@@ -18,6 +18,22 @@ impl Lut {
         ret
     }
 
+    pub fn create_3d_sample(&self) -> Vec<Vec<f64>> {
+        let sample = self.create_1d_sample();
+        let grid_num = self.grid_num;
+        let mut ret = vec![vec![0.0_f64; 3]; grid_num.pow(3)];
+        for i in (0..grid_num) {
+            for j in (0..grid_num) {
+                for k in (0..grid_num) {
+                    ret[i*grid_num.pow(2) + j*grid_num + k][0] = sample[i];
+                    ret[i*grid_num.pow(2) + j*grid_num + k][1] = sample[j];
+                    ret[i*grid_num.pow(2) + j*grid_num + k][2] = sample[k];
+                }
+            }
+        }
+        ret
+    }
+
     pub fn hlg_oetf(&self) {
         let max = (self.grid_num - 1) as f64;
         for i in 0..1 << self.in_bit_wid {
