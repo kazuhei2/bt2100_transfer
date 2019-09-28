@@ -15,7 +15,9 @@ impl Lut {
         let interval = (max + 1) / (self.grid_num - 1);
         let mut ret: Vec<f64> =
             (0..max + 1).step_by(interval).map(|i| i as f64).collect();
-        ret.push(max as f64);
+        if ret.len() != self.grid_num {
+            ret.push(max as f64);
+        }
         ret
     }
 
