@@ -24,9 +24,6 @@ fn main() {
     let lut = lut::LutBuilder::new().grid_num(33).finalize();
 
     let mut sample_1d = lut.create_1d_sample();
-    println!("{:?}", sample_1d);
-    lut.print_1d_tf(oetf, sample_1d);
-
     println!("created:");
     println!("{:?}", sample_1d);
     lut.normalize(&mut sample_1d);
