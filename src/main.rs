@@ -21,7 +21,12 @@ fn main() {
 
     println!("After: rgb is {:?}", rgb);
 
-    let lut = lut::LutBuilder::new().finalize();
+    let lut = lut::LutBuilder::new().grid_num(33).finalize();
 
-    lut.hlg_oetf();
+    let sample_1d = lut.create_1d_sample();
+    println!("{:?}", sample_1d);
+    lut.tf1d(oetf, sample_1d);
+
+    let sample_3d = lut.create_3d_sample();
+    println!("{:?}", sample_3d);
 }
