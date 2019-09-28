@@ -24,18 +24,24 @@ fn main() {
     let lut = lut::LutBuilder::new().grid_num(33).finalize();
 
     let mut sample_1d = lut.create_1d_sample();
-    println!("created:");
-    println!("{:?}", sample_1d);
-    lut.normalize(&mut sample_1d);
-    println!("normalized:");
-    println!("{:?}", sample_1d);
-    lut.hlg_oetf(&mut sample_1d);
-    println!("oetf output:");
-    println!("{:?}", sample_1d);
-    lut.unnormalize(&mut sample_1d);
-    println!("unnormalized:");
-    println!("{:?}", sample_1d);
+    let orig_1d = lut.create_1d_sample();
 
-    let sample_3d = lut.create_3d_sample();
-    println!("{:?}", sample_3d);
+    lut.normalize(&mut sample_1d);
+    lut.hlg_oetf(&mut sample_1d);
+    lut.unnormalize(&mut sample_1d);
+
+    for i in 0..sample_1d.len() {
+        println!("{},->,{}", orig_1d[i], sample_1d[i])
+    }
+
+    let mut sample_3d = lut.create_3d_sample();
+    let orig_3d = lut.create_3d_sample();
+    for mut c in &mut sample_3d {
+        lut.normalize(&mut c);
+    }
+    lut.hlg_ootf(display_prop, &mut sample_3d);
+    for i in 0..sample_3d.len() {
+        println!("{},{},{},->,{},{},{}", orig_3d[i][0], orig_3d[i][1],
+            orig_3d[i][2], sample_3d[i][0], sample_3d[i][1], sample_3d[i][2])
+    }
 }
