@@ -23,9 +23,21 @@ fn main() {
 
     let lut = lut::LutBuilder::new().grid_num(33).finalize();
 
-    let sample_1d = lut.create_1d_sample();
+    let mut sample_1d = lut.create_1d_sample();
     println!("{:?}", sample_1d);
     lut.print_1d_tf(oetf, sample_1d);
+
+    println!("created:");
+    println!("{:?}", sample_1d);
+    lut.normalize(&mut sample_1d);
+    println!("normalized:");
+    println!("{:?}", sample_1d);
+    lut.hlg_oetf(&mut sample_1d);
+    println!("oetf output:");
+    println!("{:?}", sample_1d);
+    lut.unnormalize(&mut sample_1d);
+    println!("unnormalized:");
+    println!("{:?}", sample_1d);
 
     let sample_3d = lut.create_3d_sample();
     println!("{:?}", sample_3d);

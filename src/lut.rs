@@ -1,6 +1,7 @@
 use std::f64;
 
 use crate::bt2100tf::hlg;
+use crate::bt2100tf::hlg::DisplayProp;
 
 pub struct Lut {
     pub in_bit_wid: usize,
@@ -41,6 +42,38 @@ impl Lut {
         let max = self.in_max as f64;
         for c in sample.iter() {
             println!("{},->,{}", c, func(c / max) * max);
+        }
+    }
+
+    pub fn normalize(&self, sample: &mut Vec<f64>) {
+        let max = self.in_max as f64;
+        for c in sample {
+            *c = *c / max;
+        }
+    }
+
+    pub fn unnormalize(&self, sample: &mut Vec<f64>) {
+        let max = self.in_max as f64;
+        for c in sample {
+            *c = *c * max;
+        }
+    }
+
+    pub fn hlg_oetf(&self, sample: &mut Vec<f64>) {
+        for c in sample {
+            *c = hlg::oetf(*c);
+        }
+    }
+
+    pub fn hlg_inverse_oetf(&self, sample: &mut Vec<f64>) {
+        for c in sample {
+            *c = hlg::inverse_oetf(*c);
+        }
+    }
+
+    pub fn hlg_ootf(&self, prop: DisplayProp, sample: &mut Vec<Vec<f64>>) {
+        for rgb in sample {
+            prop.ootf(rgb);
         }
     }
 }
