@@ -51,24 +51,6 @@ impl Lut {
             *c = *c * max;
         }
     }
-
-    pub fn hlg_oetf(&self, sample: &mut Vec<f64>) {
-        for c in sample {
-            *c = hlg::oetf(*c);
-        }
-    }
-
-    pub fn hlg_inverse_oetf(&self, sample: &mut Vec<f64>) {
-        for c in sample {
-            *c = hlg::inverse_oetf(*c);
-        }
-    }
-
-    pub fn hlg_ootf(&self, prop: DisplayProp, sample: &mut Vec<Vec<f64>>) {
-        for rgb in sample {
-            prop.ootf(rgb);
-        }
-    }
 }
 
 pub struct LutBuilder {
