@@ -36,6 +36,12 @@ impl DisplayProp {
             *e = (lw - lb) * y_pow * *e + lb;
         }
     }
+
+    pub fn ootf_all(&self, rgb_vec: &mut Vec<Vec<f64>>) {
+        for rgb in rgb_vec {
+            self.ootf(rgb);
+        }
+    }
 }
 
 pub fn oetf(color: f64) -> f64 {
@@ -46,11 +52,23 @@ pub fn oetf(color: f64) -> f64 {
     }
 }
 
+pub fn oetf_all(sample: &mut Vec<f64>) {
+    for c in sample {
+        *c = oetf(*c);
+    }
+}
+
 pub fn inverse_oetf(color: f64) -> f64 {
     if color <= 0.5 {
         color * color / 3.0
     } else {
         let tmp = (color - HLG_C) / HLG_A;
         (tmp.exp() + HLG_B) / 12.0
+    }
+}
+
+pub fn inverse_oetf_all(sample: &mut Vec<f64>) {
+    for c in sample {
+        *c = inverse_oetf(*c);
     }
 }
