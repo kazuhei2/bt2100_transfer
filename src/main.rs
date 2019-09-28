@@ -1,5 +1,3 @@
-use std::f64;
-
 mod bt2100tf;
 use bt2100tf::hlg;
 use bt2100tf::hlg::DisplayProp;

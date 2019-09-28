@@ -1,8 +1,5 @@
 use std::f64;
 
-use crate::bt2100tf::hlg;
-use crate::bt2100tf::hlg::DisplayProp;
-
 pub struct Lut {
     pub in_bit_wid: usize,
     pub in_max: usize,
@@ -26,9 +23,9 @@ impl Lut {
         let sample = self.create_1d_sample();
         let grid_num = self.grid_num;
         let mut ret = vec![vec![0.0_f64; 3]; grid_num.pow(3)];
-        for i in (0..grid_num) {
-            for j in (0..grid_num) {
-                for k in (0..grid_num) {
+        for i in 0..grid_num {
+            for j in 0..grid_num {
+                for k in 0..grid_num {
                     ret[i*grid_num.pow(2) + j*grid_num + k][0] = sample[i];
                     ret[i*grid_num.pow(2) + j*grid_num + k][1] = sample[j];
                     ret[i*grid_num.pow(2) + j*grid_num + k][2] = sample[k];
