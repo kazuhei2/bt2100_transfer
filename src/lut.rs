@@ -37,7 +37,7 @@ impl Lut {
         ret
     }
 
-    pub fn tf1d(&self, func: fn(f64) -> f64, sample: Vec<f64>) {
+    pub fn print_1d_tf(&self, func: fn(f64) -> f64, sample: Vec<f64>) {
         let max = self.in_max as f64;
         for c in sample.iter() {
             println!("{},->,{}", c, func(c / max) * max);
